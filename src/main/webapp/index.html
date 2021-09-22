@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+<script>
+    let session = 1;
+    const timeout = 15000;
+
+    $(document).ready(function () {
+        getTickets();
+        setTimeout(refresh, timeout);
+    });
+
+    function refresh(){
+        getTickets();
+        setTimeout(refresh, timeout);
+    }
+
+    function changeSession(vSession) {
+        if (session !== vSession) {
+            session = vSession;
+            getTickets();
+        }
+    }
+
+    function getTickets() {
+        $('input:radio').each(function() {
+            if (this.name === 'place') {
+                $(this).prop("disabled", false);
+                $(this).prop("checked", false);
+                let arr = (this.value + '').split('');
+                $('#labelPlace' + this.value).text(' Ряд ' + arr[0] + ', Место ' + arr[1]);
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/cinema/hall?id_session=' + session,
+            dataType: 'json'
+        }).done(function (data) {
+            for (let item of data) {
+                $('#inputPlace' + item.row + item.cell).prop("disabled", true);
+                $('#labelPlace' + item.row + item.cell).text(' Ряд ' + item.row + ', Место ' + item.cell + ' (занято)');
+            }
+        }).fail(function (err) {
+            console.log(err);
+        });
+    }
+
+    function goToPayment(){
+        let place = $('input[name="place"]:checked').val();
+        if (place !== undefined) {
+            let s = 'session_id=' + session;
+            let arr = place.split('');
+            let r = 'row=' + arr[0];
+            let c = 'cell=' + arr[1];
+            let href = 'http://localhost:8080/cinema/payment.html';
+            window.location.href = href + '?' + s + '&' + r + '&' + c;
+        } else {
+            alert('Выберите место для кинопросмотра!');
+        }
+    }
+
+</script>
+
+<div class="container">
+
+    <div class="row pt-3">
+        <h4>
+            Бронирование места на сеанс
+        </h4>
+    </div>
+
+    <div class="row pt-3">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="sessions" id="session1" autocomplete="off" onchange="changeSession(1)"> 10:00
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="sessions" id="session2" autocomplete="off" onchange="changeSession(2)"> 13:30
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="sessions" id="session3" autocomplete="off" onchange="changeSession(3)"> 17:00
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="sessions" id="session4" autocomplete="off" onchange="changeSession(4)"> 20:30
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="sessions" id="session5" autocomplete="off" onchange="changeSession(5)"> 00:00
+            </label>
+        </div>
+    </div>
+
+    <div class="row pt-3">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 120px;">Ряд / Место</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>1</th>
+                <td>
+                    <input type="radio" id="inputPlace11" name="place" value="11">
+                    <label for="inputPlace11" id="labelPlace11">Ряд 1, Место 1</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace12" name="place" value="12">
+                    <label for="inputPlace12" id="labelPlace12">Ряд 1, Место 2</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace13" name="place" value="13">
+                    <label for="inputPlace13" id="labelPlace13">Ряд 1, Место 3</label>
+                </td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>
+                    <input type="radio" id="inputPlace21" name="place" value="21">
+                    <label for="inputPlace21" id="labelPlace21">Ряд 2, Место 1</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace22" name="place" value="22">
+                    <label for="inputPlace22" id="labelPlace22">Ряд 2, Место 2</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace23" name="place" value="23">
+                    <label for="inputPlace23" id="labelPlace23">Ряд 2, Место 3</label>
+                </td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td>
+                    <input type="radio" id="inputPlace31" name="place" value="31">
+                    <label for="inputPlace31" id="labelPlace31">Ряд 3, Место 1</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace32" name="place" value="32">
+                    <label for="inputPlace32" id="labelPlace32">Ряд 3, Место 2</label>
+                </td>
+                <td>
+                    <input type="radio" id="inputPlace33" name="place" value="33">
+                    <label for="inputPlace33" id="labelPlace33">Ряд 3, Место 3</label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row float-right">
+        <button type="button" id="paymentBtn" class="btn btn-success" onclick="goToPayment()">Продолжить</button>
+    </div>
+
+</div>
+</body>
+</html>
