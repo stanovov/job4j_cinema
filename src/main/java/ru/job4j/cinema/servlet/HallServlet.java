@@ -48,13 +48,13 @@ public class HallServlet extends HttpServlet {
         }
         store.save(account);
         if (account.getId() == 0) {
-            writer.print("Не удалось забронировать. Непредвиденная ошибка!");
+            writer.print("409 Conflict");
             writer.flush();
             return;
         }
         store.save(ticket);
         if (ticket.getId() == 0) {
-            writer.print("Не удалось забронировать. На данную сессию, место и ряд уже имеется бронь!");
+            writer.print("409 Conflict");
             writer.flush();
             return;
         }
