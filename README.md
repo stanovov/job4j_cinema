@@ -3,9 +3,21 @@
 [![Build Status](https://app.travis-ci.com/stanovov/job4j_cinema.svg?branch=master)](https://app.travis-ci.com/stanovov/job4j_cinema)
 
 
-### Описание
+### Описание:
 
 Это простое веб-приложение, которое позволяет бронировать места для сеансов в кинотеатре.
+
+### Технологии, используемые в проекте:
+
++ Сборщик проектов **Maven**;
++ Непрерывная интеграция - **Travis CI**;
++ Frontend - **JavaScript**;
++ Backend - **Java**:
+  + **JDBC**;
+  + **Servlet**;
+  + Логгирование - **Log4j** и **Slf4j**;
++ Используемая СУБД - **PostgreSQL**;
++ Инструмент для анализа стиля кода - **Checkstyle**;
 
 ---
 

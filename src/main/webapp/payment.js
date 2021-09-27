@@ -93,7 +93,8 @@ function payment() {
                     + 'Через несколько секунд Вас перенаправит на главную страницу...');
                 setTimeout(() => {window.location.href = 'http://localhost:8080/cinema/index.html'}, 5000);
             } else {
-                $('#notification').text(data);
+                $('#notification').text('Место не удалось забронировать');
+                console.log(data);
             }
         }).fail(function(err) {
             console.log(err);
