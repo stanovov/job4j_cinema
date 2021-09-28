@@ -1,25 +1,28 @@
-# job4j_cinema
-
 [![Build Status](https://app.travis-ci.com/stanovov/job4j_cinema.svg?branch=master)](https://app.travis-ci.com/stanovov/job4j_cinema)
 
+# job4j_cinema
 
-### Описание:
++ [О проекте](#О-проекте)
++ [Технологии](#технологии)
++ [Интерфейс](#интерфейс)
++ [Контакты](#контакты)
 
-Это простое веб-приложение, которое позволяет бронировать места для сеансов в кинотеатре.
+## О проекте
 
-### Технологии, используемые в проекте:
+Это простое MVC веб-приложение на сервлетах и JDBC, которое позволяет бронировать места для сеансов в кинотеатре.
+
+## Технологии
 
 + Сборщик проектов **Maven**;
-+ Непрерывная интеграция - **Travis CI**;
-+ Frontend - **JavaScript**;
-+ Backend - **Java**:
-  + **JDBC**;
-  + **Servlet**;
-  + Логгирование - **Log4j** и **Slf4j**;
++ Frontend - **HTML**, **CSS**, **BOOTSTRAP**, **JS**, **AJAX**, **JQUERY**;
++ Backend - **Java 14**, **JDBC**, **Servlet**;
++ Логгирование - **Log4j**, **Slf4j**;
 + Используемая СУБД - **PostgreSQL**;
++ Контейнер сервлетов - **Apache Tomcat**;
++ Непрерывная интеграция - **Travis CI**;
 + Инструмент для анализа стиля кода - **Checkstyle**;
 
----
+## Интерфейс
 
 Основная страница:
 
@@ -60,3 +63,10 @@
 
 ![ScreenShot](images/payment_4.png)
 
+## Контакты
+
+Становов Семён Сергеевич
+
+Email: sestanovov@gmail.com
+
+Telegram: [@stanovovss](https://t.me/stanovovss)
